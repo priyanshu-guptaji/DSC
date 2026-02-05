@@ -38,7 +38,7 @@ export default function JoinSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
     },
   };
 
@@ -47,7 +47,7 @@ export default function JoinSection() {
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { delay: i * 0.12, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { delay: i * 0.12, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
     }),
   };
 
@@ -57,13 +57,13 @@ export default function JoinSection() {
       opacity: 1,
       scale: 1,
       rotate: 0,
-      transition: { duration: 0.6, ease: [0.34, 1.56, 0.64, 1] },
+      transition: { duration: 0.6, ease: [0.34, 1.56, 0.64, 1] as const },
     },
     exit: {
       opacity: 0,
       scale: 0.7,
       rotate: 10,
-      transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as const },
     },
   };
 
@@ -104,8 +104,8 @@ export default function JoinSection() {
             </motion.div>
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Join DS Club</h2>
             <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
-              Ready to be part of a thriving community of data science enthusiasts? Fill out the form below and we'll get
-              in touch with you soon!
+              Ready to be part of a thriving community of data science enthusiasts? Fill out the form below or
+              <a href="mailto:dsc@kiit.ac.in?subject=Joining DS Club" className="text-primary hover:underline ml-1">contact us via Gmail</a>.
             </p>
           </motion.div>
 

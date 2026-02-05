@@ -151,61 +151,60 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
 
   return (
     <motion.div
-      className="group rounded-2xl border border-border/40 bg-gradient-to-b from-card to-card/80 overflow-hidden cursor-pointer backdrop-blur-sm hover:border-primary/50 transition-all duration-300"
+      className="group relative rounded-2xl border border-border/40 bg-card overflow-hidden cursor-pointer backdrop-blur-sm hover:border-primary/50 transition-all duration-300 min-h-[320px] flex flex-col justify-end"
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      whileHover={{ y: -8, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)' }}
+      whileHover={{ y: -12, boxShadow: '0 40px 80px -15px rgba(0, 0, 0, 0.6)' }}
     >
-      {/* Header gradient background */}
-      <div className={`h-20 sm:h-24 bg-gradient-to-r ${colorClass} relative overflow-hidden`}>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.2),transparent)]" />
-      </div>
+      {/* Background Texture/Noise overlay for premium feel */}
+      <div className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
-      <div className="p-4 sm:p-6 text-center -mt-10 sm:-mt-12 relative z-10">
-        {/* Avatar with Photo Support */}
-        <motion.div
-          className="w-20 h-20 sm:w-24 sm:h-24 rounded-full mx-auto mb-3 sm:mb-4 shadow-xl ring-4 ring-card overflow-hidden"
-          variants={avatarHoverVariants}
-          whileHover="hover"
-        >
-          {member.image ? (
+      {/* Background Image/Gradient */}
+      <div className="absolute inset-0 z-0">
+        {member.image ? (
+          <>
             <Image
               src={member.image}
               alt={member.name}
-              width={96}
-              height={96}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
             />
-          ) : (
-            <div className="w-full h-full bg-gradient-to-br from-[#2F6FD8] via-[#6C4AB6] to-[#2F6FD8] flex items-center justify-center font-bold text-xl sm:text-2xl text-white">
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+          </>
+        ) : (
+          <div className={`absolute inset-0 bg-gradient-to-br ${colorClass}`}>
+            <div className="w-full h-full flex items-center justify-center font-bold text-6xl text-white/10 select-none">
               {member.initials}
             </div>
-          )}
-        </motion.div>
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+          </div>
+        )}
+      </div>
 
+      <div className="p-6 relative z-10">
         {/* Name */}
-        <h3 className="font-bold text-base sm:text-lg mb-1 text-foreground group-hover:text-primary transition-colors">
+        <h3 className="font-bold text-xl mb-1 text-foreground group-hover:text-primary transition-colors">
           {member.name}
         </h3>
 
         {/* Position */}
-        <p className="text-xs sm:text-sm text-primary font-semibold mb-1 uppercase tracking-wide">
+        <p className="text-sm text-primary font-semibold mb-2 uppercase tracking-wide">
           {member.position}
         </p>
 
         {/* Expertise */}
-        <p className="text-xs text-foreground/60 mb-3 sm:mb-4">
+        <p className="text-sm text-foreground/70 mb-4 line-clamp-2">
           {member.expertise}
         </p>
 
         {/* Social Icons */}
-        <div className="flex items-center justify-center gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-border/30">
+        <div className="flex items-center gap-3 pt-4 border-t border-border/30">
           {member.linkedin && (
             <motion.a
               href={member.linkedin}
-              className="p-2 hover:bg-primary/10 rounded-lg text-foreground/50 hover:text-primary transition-colors"
+              className="p-2 bg-background/50 hover:bg-primary/20 rounded-lg text-foreground/70 hover:text-primary transition-colors backdrop-blur-md"
               variants={socialIconVariants}
               whileHover="hover"
               aria-label="LinkedIn"
@@ -216,7 +215,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
           {member.github && (
             <motion.a
               href={member.github}
-              className="p-2 hover:bg-primary/10 rounded-lg text-foreground/50 hover:text-primary transition-colors"
+              className="p-2 bg-background/50 hover:bg-primary/20 rounded-lg text-foreground/70 hover:text-primary transition-colors backdrop-blur-md"
               variants={socialIconVariants}
               whileHover="hover"
               aria-label="GitHub"

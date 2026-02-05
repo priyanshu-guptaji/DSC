@@ -94,120 +94,126 @@ interface AlumniMember {
     currentRole: string;
 }
 
-function AlumniCard({ member, index, isReversed }: { member: AlumniMember; index: number; isReversed: boolean }) {
+function AlumniCard({ member, index }: { member: AlumniMember; index: number }) {
     const cardVariants = {
-        hidden: { opacity: 0, y: 40 },
+        hidden: { opacity: 0, scale: 0.9, y: 30 },
         visible: {
             opacity: 1,
+            scale: 1,
             y: 0,
             transition: { delay: index * 0.1, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
         },
     };
 
+    const colors = [
+        'from-[#2F6FD8]/30 via-[#6C4AB6]/20 to-[#2F6FD8]/10',
+        'from-[#6C4AB6]/30 via-[#2F6FD8]/20 to-[#6C4AB6]/10',
+        'from-[#F28C28]/20 via-[#6C4AB6]/20 to-[#2F6FD8]/20',
+        'from-[#2F6FD8]/20 via-[#F28C28]/20 to-[#6C4AB6]/20',
+    ];
+    const colorClass = colors[member.id % colors.length];
+
     return (
         <motion.div
-            className={`group relative bg-card rounded-2xl overflow-hidden border border-border/40 shadow-lg hover:shadow-2xl transition-all duration-500 ${isReversed ? 'lg:flex-row-reverse' : ''
-                } flex flex-col lg:flex-row`}
+            className="group relative rounded-3xl border border-white/5 bg-card overflow-hidden cursor-pointer backdrop-blur-md hover:border-primary/40 transition-all duration-500 min-h-[420px] flex flex-col justify-end p-8"
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
-            whileHover={{ y: -8 }}
+            whileHover={{ y: -12, boxShadow: '0 40px 80px -15px rgba(0, 0, 0, 0.6)' }}
         >
-            {/* Photo Section */}
-            <div className="relative w-full lg:w-2/5 aspect-square lg:aspect-auto overflow-hidden bg-gradient-to-br from-[#2F6FD8]/20 to-[#6C4AB6]/20">
+            {/* Background Texture/Noise overlay for premium feel */}
+            <div className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+
+            {/* Background Image/Gradient */}
+            <div className="absolute inset-0 z-0">
                 {member.image ? (
-                    <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-                    />
+                    <>
+                        <Image
+                            src={member.image}
+                            alt={member.name}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+                    </>
                 ) : (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="relative w-full h-full bg-gradient-to-br from-[#1E1E1E] to-[#2a2a2a]">
-                            {/* Placeholder silhouette effect */}
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-[#2F6FD8]/30 to-[#6C4AB6]/30 flex items-center justify-center">
-                                    <span className="text-4xl sm:text-5xl font-bold text-white/80">
-                                        {member.name.split(' ').map(n => n[0]).join('')}
-                                    </span>
-                                </div>
-                            </div>
-                            {/* Decorative elements */}
-                            <div className="absolute top-4 left-4 w-16 h-16 border border-[#2F6FD8]/20 rounded-full" />
-                            <div className="absolute bottom-8 right-8 w-24 h-24 border border-[#6C4AB6]/20 rounded-full" />
+                    <div className={`absolute inset-0 bg-gradient-to-br ${colorClass} opacity-80`}>
+                        <div className="w-full h-full flex items-center justify-center font-bold text-[10rem] text-white/5 select-none transition-transform duration-700 group-hover:scale-110">
+                            {member.name.split(' ').map(n => n[0]).join('')}
                         </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
                     </div>
                 )}
-                {/* Overlay gradient on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1E1E1E]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
 
             {/* Content Section */}
-            <div className="flex-1 p-6 sm:p-8 lg:p-10 flex flex-col justify-center">
-                {/* Name & Position */}
-                <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-1 group-hover:text-[#2F6FD8] transition-colors duration-300">
+            <div className="relative z-20">
+                {/* Tenure Badge */}
+                <motion.div
+                    className="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-[0.2em] uppercase text-white/60 bg-white/5 backdrop-blur-md border border-white/10 rounded-full"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 + 0.3 }}
+                >
+                    {member.tenure}
+                </motion.div>
+
+                {/* Name & Role */}
+                <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 tracking-tight group-hover:text-primary transition-colors duration-300">
                     {member.name}
                 </h3>
-                <p className="text-[#2F6FD8] font-semibold text-sm sm:text-base mb-3">
-                    {member.position}
-                </p>
 
-                {/* Bio */}
-                <p className="text-foreground/70 text-sm sm:text-base leading-relaxed mb-4">
-                    {member.bio}
-                </p>
-
-                {/* Current Role Badge */}
-                <div className="mb-4">
-                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#F28C28]/10 text-[#F28C28] text-xs sm:text-sm font-medium">
-                        Currently: {member.currentRole}
-                    </span>
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                    <span className="text-primary font-bold text-xs uppercase tracking-wider">{member.position}</span>
+                    <span className="w-1 h-1 rounded-full bg-white/20" />
+                    <span className="text-white/40 text-xs font-medium">{member.location}</span>
                 </div>
 
-                {/* Location & Tenure + Social Links */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-4 border-t border-border/30">
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#2F6FD8]/10 text-[#2F6FD8] text-xs sm:text-sm font-medium">
-                            📍 {member.location}
-                        </span>
-                        <span className="text-foreground/50 text-xs sm:text-sm">
-                            {member.tenure}
-                        </span>
+                {/* Current Role with animated underline */}
+                <div className="relative mb-6 pt-4 border-t border-white/5">
+                    <p className="text-sm text-white/70 leading-relaxed italic group-hover:text-white transition-colors">
+                        &ldquo;{member.bio}&rdquo;
+                    </p>
+                    <div className="mt-4 flex items-center gap-2">
+                        <div className="w-6 h-[1px] bg-primary/40" />
+                        <span className="text-[11px] font-bold text-primary/80 uppercase tracking-widest">{member.currentRole}</span>
                     </div>
+                </div>
 
-                    {/* Social Icons */}
-                    <div className="flex items-center gap-3">
-                        {member.linkedin && (
-                            <motion.a
-                                href={member.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="p-2.5 rounded-full bg-card border border-border/50 text-foreground/60 hover:text-[#2F6FD8] hover:border-[#2F6FD8]/50 transition-all duration-300"
-                                whileHover={{ scale: 1.1, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                                aria-label="LinkedIn"
-                            >
-                                <Linkedin className="w-4 h-4" />
-                            </motion.a>
-                        )}
-                        {member.website && (
-                            <motion.a
-                                href={member.website}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="p-2.5 rounded-full bg-card border border-border/50 text-foreground/60 hover:text-[#6C4AB6] hover:border-[#6C4AB6]/50 transition-all duration-300"
-                                whileHover={{ scale: 1.1, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                                aria-label="Website"
-                            >
-                                <Globe className="w-4 h-4" />
-                            </motion.a>
-                        )}
-                    </div>
+                {/* Social Links - Glassmorphism style */}
+                <div className="flex items-center gap-3">
+                    {member.linkedin && (
+                        <motion.a
+                            href={member.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-3 rounded-xl bg-white/5 hover:bg-primary/20 text-white/60 hover:text-white border border-white/10 hover:border-primary/50 transition-all duration-300 backdrop-blur-xl"
+                            whileHover={{ scale: 1.1, y: -4 }}
+                            whileTap={{ scale: 0.95 }}
+                            aria-label="LinkedIn"
+                        >
+                            <Linkedin className="w-4 h-4" />
+                        </motion.a>
+                    )}
+                    {member.website && (
+                        <motion.a
+                            href={member.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-3 rounded-xl bg-white/5 hover:bg-accent/20 text-white/60 hover:text-white border border-white/10 hover:border-accent/50 transition-all duration-300 backdrop-blur-xl"
+                            whileHover={{ scale: 1.1, y: -4 }}
+                            whileTap={{ scale: 0.95 }}
+                            aria-label="Website"
+                        >
+                            <Globe className="w-4 h-4" />
+                        </motion.a>
+                    )}
                 </div>
             </div>
+
+            {/* Subtle corner glow */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
         </motion.div>
     );
 }
@@ -223,69 +229,78 @@ export default function AlumniSection() {
     };
 
     return (
-        <section id="alumni" className="py-16 sm:py-20 md:py-28 bg-gradient-to-b from-background via-card/20 to-background">
+        <section id="alumni" className="py-24 sm:py-32 relative overflow-hidden bg-background">
+            {/* Premium Background elements */}
+            <div className="absolute top-0 left-0 w-full h-full -z-10 pointer-events-none">
+                <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-primary/5 blur-[120px] rounded-full opacity-50" />
+                <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-accent/5 blur-[100px] rounded-full opacity-50" />
+                <div className="absolute inset-0 opacity-[0.02] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+            </div>
+
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
                 <motion.div
-                    className="text-center mb-12 sm:mb-16"
+                    className="text-center mb-20 sm:mb-24"
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
                     variants={sectionTitleVariants}
                 >
                     {/* Badge */}
-                    <motion.span
-                        className="inline-block px-4 py-1.5 rounded-full bg-[#2F6FD8]/10 text-[#2F6FD8] text-sm font-medium mb-4"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
+                    <motion.div
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-[0.2em] mb-8"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: 0.1, duration: 0.4 }}
+                        transition={{ delay: 0.1, duration: 0.5 }}
                     >
-                        Alumni
-                    </motion.span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                        Our Legacy
+                    </motion.div>
 
                     {/* Title */}
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-foreground">
-                        Built by These Faces
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-8 text-foreground tracking-tight">
+                        Built by These <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">Visionaries</span>
                     </h2>
 
                     {/* Subtitle */}
-                    <p className="text-foreground/60 text-base sm:text-lg max-w-2xl mx-auto mb-8">
-                        There are many variations of available but the majority have suffered alteration in some form.
-                        Meet the visionary leaders who shaped our club.
+                    <p className="text-foreground/50 text-lg sm:text-xl max-w-2xl mx-auto mb-12 font-medium leading-relaxed">
+                        Meet the brilliant minds who laid the foundation and shaped the future of our data science community.
                     </p>
 
                     {/* CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                         <Link href="/#join">
                             <motion.button
-                                className="px-6 py-3 bg-gradient-to-r from-[#2F6FD8] to-[#6C4AB6] text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300"
+                                className="group relative px-8 py-4 bg-primary text-white font-bold rounded-2xl shadow-2xl shadow-primary/20 overflow-hidden"
                                 whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileTap={{ scale: 0.98 }}
                             >
-                                Join Our Team
+                                <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                <span className="relative z-10 flex items-center gap-2">
+                                    Join Our Team <span className="group-hover:translate-x-1 transition-transform">→</span>
+                                </span>
                             </motion.button>
                         </Link>
                         <Link href="/#about">
                             <motion.button
-                                className="px-6 py-3 bg-card border border-border text-foreground font-semibold rounded-full hover:bg-muted transition-colors duration-300"
+                                className="px-8 py-4 bg-white/5 border border-white/10 text-foreground font-bold rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-md"
                                 whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileTap={{ scale: 0.98 }}
                             >
-                                Learn more About us
+                                Learn More
                             </motion.button>
                         </Link>
                     </div>
                 </motion.div>
 
                 {/* Alumni Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {alumni.map((member, index) => (
                         <AlumniCard
                             key={member.id}
                             member={member}
                             index={index}
-                            isReversed={index % 2 === 1}
                         />
                     ))}
                 </div>

@@ -11,9 +11,10 @@ import EventsSection from '@/components/events-section';
 import TeamSection from '@/components/team-section';
 import JoinSection from '@/components/join-section';
 import Footer from '@/components/footer';
+import GallerySection from '@/components/gallery-section';
 
 export default function Home() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   const pageVariants = {
     initial: { opacity: 0 },
@@ -33,7 +34,7 @@ export default function Home() {
       y: 0,
       transition: {
         duration: 0.4,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     },
   };
@@ -64,6 +65,9 @@ export default function Home() {
           </motion.div>
           <motion.div variants={sectionVariants}>
             <TeamSection />
+          </motion.div>
+          <motion.div variants={sectionVariants}>
+            <GallerySection />
           </motion.div>
           <motion.div variants={sectionVariants}>
             <JoinSection />

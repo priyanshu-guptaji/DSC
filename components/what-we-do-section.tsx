@@ -44,7 +44,7 @@ export default function WhatWeDoSection() {
       transition: {
         staggerChildren: 0.12,
         delayChildren: 0.25,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
       },
     },
   };
@@ -55,7 +55,7 @@ export default function WhatWeDoSection() {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const },
     },
   };
 
@@ -64,7 +64,7 @@ export default function WhatWeDoSection() {
       y: -12,
       boxShadow: '0 30px 60px rgba(79, 70, 229, 0.2)',
       borderColor: 'var(--primary)',
-      transition: { type: 'spring', stiffness: 300, damping: 20 },
+      transition: { type: 'spring' as const, stiffness: 300, damping: 20 },
     },
   };
 
@@ -72,7 +72,7 @@ export default function WhatWeDoSection() {
     hover: {
       scale: 1.25,
       rotate: 15,
-      transition: { type: 'spring', stiffness: 400, damping: 15 },
+      transition: { type: 'spring' as const, stiffness: 400, damping: 15 },
     },
   };
 
@@ -81,7 +81,7 @@ export default function WhatWeDoSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+      transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] as const },
     },
   };
 
@@ -131,7 +131,7 @@ export default function WhatWeDoSection() {
                 <motion.div
                   className="absolute -inset-px rounded-xl opacity-0 blur-xl"
                   initial={{ background: 'none', opacity: 0 }}
-                  whileHover={{ 
+                  whileHover={{
                     background: 'linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)',
                     opacity: 0.1
                   }}
@@ -144,10 +144,10 @@ export default function WhatWeDoSection() {
                     className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 flex-shrink-0"
                     variants={iconVariants}
                     whileHover="hover"
-                    animate={{ 
+                    animate={{
                       y: [0, -3, 0],
                     }}
-                    transition={{ 
+                    transition={{
                       y: { duration: 2, repeat: Infinity, ease: 'easeInOut' }
                     }}
                   >
@@ -155,7 +155,7 @@ export default function WhatWeDoSection() {
                   </motion.div>
 
                   {/* Title */}
-                  <motion.h3 
+                  <motion.h3
                     className="text-lg sm:text-xl font-semibold mb-3"
                     initial={{ color: 'var(--foreground)' }}
                     whileHover={{ color: 'var(--primary)' }}
