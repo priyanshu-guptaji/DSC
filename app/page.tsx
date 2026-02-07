@@ -14,7 +14,7 @@ import Footer from '@/components/footer';
 import GallerySection from '@/components/gallery-section';
 
 export default function Home() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
 
   const pageVariants = {
     initial: { opacity: 0 },

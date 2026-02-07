@@ -7,7 +7,7 @@ import AlumniSection from '@/components/alumni-section';
 import Footer from '@/components/footer';
 
 export default function AlumniPage() {
-    const [isDark, setIsDark] = useState(true); // Default to dark mode
+    const [isDark, setIsDark] = useState(false); // Default to light mode
 
     const pageVariants = {
         initial: { opacity: 0 },

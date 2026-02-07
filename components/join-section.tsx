@@ -220,15 +220,22 @@ export default function JoinSection() {
               {/* Submit Button */}
               <motion.button
                 type="submit"
-                className="w-full py-3 bg-gradient-to-r from-primary to-accent text-white font-semibold rounded-lg"
+                className="w-full h-14 bg-gradient-to-r from-primary via-primary to-accent text-primary-foreground font-black text-lg rounded-xl shadow-[0_15px_40px_-10px_rgba(var(--primary-rgb),0.5)] relative overflow-hidden group border border-white/5"
                 custom={4}
                 variants={formItemVariants}
                 initial="hidden"
                 animate="visible"
-                whileHover={{ scale: 1.02, boxShadow: '0 10px 30px rgba(0, 0, 0, 0.2)' }}
+                whileHover={{ scale: 1.02, y: -2, boxShadow: '0 20px 50px -10px rgba(var(--primary-rgb),0.6)' }}
                 whileTap={{ scale: 0.98 }}
               >
-                Join DS Club
+                {/* Shine effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:animate-shine"
+                />
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  <Check className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-x-2 group-hover:translate-x-0" />
+                  Join the Club
+                </span>
               </motion.button>
             </motion.form>
           )}

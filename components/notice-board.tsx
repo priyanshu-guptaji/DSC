@@ -132,8 +132,8 @@ export default function NoticeBoard() {
               >
                 {/* Timeline Dot */}
                 <div className="relative z-10 flex-shrink-0 mt-2 hidden sm:block">
-                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-3xl group-hover:border-primary/50 transition-colors">
-                    <Bell className={`w-6 h-6 ${notice.featured ? 'text-primary' : 'text-white/40'}`} />
+                  <div className="w-16 h-16 rounded-2xl bg-foreground/5 border border-foreground/10 flex items-center justify-center backdrop-blur-3xl group-hover:border-primary/50 transition-colors">
+                    <Bell className={`w-6 h-6 ${notice.featured ? 'text-primary' : 'text-foreground/40'}`} />
                   </div>
                   {notice.featured && (
                     <div className="absolute inset-0 rounded-2xl bg-primary/20 blur-xl -z-10 animate-pulse" />
@@ -142,10 +142,10 @@ export default function NoticeBoard() {
 
                 <motion.div
                   className={`flex-1 relative rounded-[2rem] border transition-all p-8 sm:p-10 overflow-hidden ${notice.featured
-                      ? 'bg-white/[0.04] border-primary/30 shadow-2xl shadow-primary/10'
-                      : 'bg-white/[0.02] border-white/5'
+                    ? 'bg-foreground/[0.04] border-primary/30 shadow-2xl shadow-primary/10'
+                    : 'bg-foreground/[0.02] border-foreground/5'
                     }`}
-                  whileHover={{ x: 10, backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'rgba(255, 255, 255, 0.1)' }}
+                  whileHover={{ x: 10, backgroundColor: 'var(--foreground)/5', borderColor: 'var(--foreground)/10' }}
                 >
                   {/* Subtle Background Texture */}
                   <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
@@ -157,12 +157,12 @@ export default function NoticeBoard() {
                         <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full ${getCategoryColor(notice.category)}`}>
                           {notice.category}
                         </span>
-                        <span className="text-white/30 text-xs font-bold">{notice.date}</span>
+                        <span className="text-foreground/30 text-xs font-bold">{notice.date}</span>
                       </div>
-                      <h3 className="text-2xl sm:text-3xl font-black text-white mb-4 group-hover:text-primary transition-colors tracking-tight">
+                      <h3 className="text-2xl sm:text-3xl font-black text-foreground mb-4 group-hover:text-primary transition-colors tracking-tight">
                         {notice.title}
                       </h3>
-                      <p className="text-white/60 leading-relaxed font-medium text-lg max-w-3xl">
+                      <p className="text-foreground/60 leading-relaxed font-medium text-lg max-w-3xl">
                         {notice.description}
                       </p>
                     </div>
@@ -170,7 +170,7 @@ export default function NoticeBoard() {
                     {/* Featured Badge */}
                     {notice.featured && (
                       <motion.div
-                        className="text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-xl bg-primary text-white whitespace-nowrap h-fit shadow-xl shadow-primary/30"
+                        className="text-[10px] font-black uppercase tracking-[0.2em] px-4 py-2 rounded-xl bg-primary text-primary-foreground whitespace-nowrap h-fit shadow-xl shadow-primary/30"
                         variants={pulseBadgeVariants}
                         animate="animate"
                       >

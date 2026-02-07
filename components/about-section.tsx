@@ -120,17 +120,23 @@ export default function AboutSection() {
               ))}
             </div>
 
-            <Link href="/join">
+            <Link href="/#join">
               <motion.button
-                className="px-8 py-4 bg-gradient-to-r from-primary to-accent text-white rounded-xl font-bold shadow-lg shadow-primary/20"
-                whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(79, 70, 229, 0.3)' }}
+                className="px-8 py-4 bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-xl font-black text-lg shadow-xl shadow-primary/20 relative overflow-hidden group"
+                whileHover={{ scale: 1.05, y: -2, boxShadow: '0 20px 40px rgba(var(--primary-rgb), 0.3)' }}
                 whileTap={{ scale: 0.98 }}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                Start Your Journey →
+                {/* Shine effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:animate-shine"
+                />
+                <span className="relative z-10 flex items-center gap-2">
+                  Start Your Journey <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </span>
               </motion.button>
             </Link>
           </motion.div>

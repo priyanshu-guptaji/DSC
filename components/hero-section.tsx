@@ -135,37 +135,12 @@ export default function HeroSection() {
             together, grow together.
           </motion.p>
 
-          {/* Buttons */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-6 mt-8"
-          >
-            <motion.button
-              className="px-10 py-5 bg-primary text-white rounded-2xl font-black text-lg shadow-2xl shadow-primary/30 relative overflow-hidden group"
-              variants={buttonHoverVariants}
-              whileHover={{ scale: 1.05, boxShadow: '0 25px 50px -12px rgba(79, 70, 229, 0.5)' }}
-              whileTap="tap"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <span className="relative z-10 flex items-center gap-3">
-                Join the Movement <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </span>
-            </motion.button>
 
-            <motion.button
-              className="px-10 py-5 bg-white/5 border border-white/10 text-foreground rounded-2xl font-black text-lg backdrop-blur-xl hover:bg-white/10 hover:border-white/20 transition-all duration-300"
-              variants={buttonHoverVariants}
-              whileHover={{ scale: 1.05 }}
-              whileTap="tap"
-            >
-              Explore Events
-            </motion.button>
-          </motion.div>
         </motion.div>
 
         {/* Stats Box */}
         <motion.div
-          className="relative mt-24 rounded-[2.5rem] border border-white/5 bg-white/[0.02] backdrop-blur-3xl overflow-hidden"
+          className="relative mt-24 rounded-[2.5rem] border border-foreground/5 bg-foreground/[0.02] backdrop-blur-3xl overflow-hidden"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8, ease: [0.25, 0.46, 0.45, 0.94] as const }}
@@ -189,13 +164,13 @@ export default function HeroSection() {
                   transition={{ delay: 1 + i * 0.1, duration: 0.6 }}
                 >
                   <motion.div
-                    className="text-6xl font-black text-white mb-3 tracking-tighter"
+                    className="text-6xl font-black text-foreground mb-3 tracking-tighter"
                     whileHover={{ scale: 1.1, color: 'var(--primary)' }}
                   >
                     {stat.number}
                   </motion.div>
-                  <p className="text-white/80 font-bold uppercase tracking-widest text-xs mb-1">{stat.label}</p>
-                  <p className="text-white/30 text-[10px] uppercase font-medium">{stat.sub}</p>
+                  <p className="text-foreground/80 font-bold uppercase tracking-widest text-xs mb-1">{stat.label}</p>
+                  <p className="text-foreground/30 text-[10px] uppercase font-medium">{stat.sub}</p>
                 </motion.div>
               ))}
             </div>

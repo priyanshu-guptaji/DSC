@@ -156,7 +156,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      whileHover={{ y: -12, boxShadow: '0 40px 80px -15px rgba(0, 0, 0, 0.6)' }}
+      whileHover={{ y: -12, boxShadow: '0 40px 80px -15px rgba(0, 0, 0, 0.1)' }}
     >
       {/* Background Texture/Noise overlay for premium feel */}
       <div className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
@@ -175,7 +175,7 @@ function TeamCard({ member, index }: { member: TeamMember; index: number }) {
           </>
         ) : (
           <div className={`absolute inset-0 bg-gradient-to-br ${colorClass}`}>
-            <div className="w-full h-full flex items-center justify-center font-bold text-6xl text-white/10 select-none">
+            <div className="w-full h-full flex items-center justify-center font-bold text-6xl text-foreground/10 select-none">
               {member.initials}
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />

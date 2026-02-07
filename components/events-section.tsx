@@ -160,15 +160,15 @@ export default function EventsSection() {
                   <div className="text-white/20 text-4xl font-black">0{idx + 1}</div>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-black text-white mb-6 group-hover:text-accent transition-colors leading-tight">
+                <h3 className="text-2xl sm:text-3xl font-black text-foreground mb-6 group-hover:text-accent transition-colors leading-tight">
                   {event.title}
                 </h3>
 
-                <p className="text-white/60 mb-8 leading-relaxed font-medium">
+                <p className="text-foreground/60 mb-8 leading-relaxed font-medium">
                   {event.description}
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 pt-8 border-t border-white/5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 pt-8 border-t border-foreground/5">
                   {[
                     { icon: Calendar, text: event.date, label: 'Schedule' },
                     { icon: MapPin, text: event.location, label: 'Venue' },
@@ -179,14 +179,14 @@ export default function EventsSection() {
                     return (
                       <motion.div
                         key={i}
-                        className="flex items-start gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-colors group/item"
+                        className="flex items-start gap-4 p-4 rounded-2xl bg-foreground/5 border border-foreground/5 hover:bg-foreground/10 transition-colors group/item"
                       >
-                        <div className="p-2 rounded-lg bg-accent/10 text-accent group-hover/item:bg-accent group-hover/item:text-white transition-all">
+                        <div className="p-2 rounded-lg bg-accent/10 text-accent group-hover/item:bg-accent group-hover/item:text-primary-foreground transition-all">
                           <Icon className="w-4 h-4" />
                         </div>
                         <div>
-                          <p className="text-[10px] uppercase tracking-widest text-white/30 font-bold mb-1">{detail.label}</p>
-                          <p className="text-sm text-white/80 font-bold">{detail.text}</p>
+                          <p className="text-[10px] uppercase tracking-widest text-foreground/30 font-bold mb-1">{detail.label}</p>
+                          <p className="text-sm text-foreground/80 font-bold">{detail.text}</p>
                         </div>
                       </motion.div>
                     );
@@ -194,11 +194,13 @@ export default function EventsSection() {
                 </div>
 
                 <motion.button
-                  className="mt-auto group/btn relative w-full py-4 bg-accent text-white font-black rounded-2xl overflow-hidden shadow-2xl shadow-accent/20"
-                  whileHover={{ scale: 1.02 }}
+                  className="mt-auto group/btn relative w-full py-5 bg-gradient-to-r from-accent to-accent/90 text-primary-foreground font-black rounded-2xl overflow-hidden shadow-2xl shadow-accent/20 border border-white/10"
+                  whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent via-white/20 to-accent animate-shimmer bg-[length:200%_auto] opacity-0 group-hover/btn:opacity-100 transition-opacity" />
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover/btn:animate-shine"
+                  />
                   <span className="relative z-10 flex items-center justify-center gap-3">
                     Reserve My Spot <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
                   </span>
@@ -210,23 +212,23 @@ export default function EventsSection() {
 
         {/* View All Button */}
         <motion.div
-          className="text-center mt-12"
+          className="text-center mt-20"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
           <motion.button
-            className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold"
+            className="px-10 py-4 border-2 border-primary text-primary rounded-2xl font-black text-lg bg-transparent relative overflow-hidden group"
             whileHover={{
               scale: 1.05,
               backgroundColor: 'var(--primary)',
               color: 'var(--primary-foreground)',
-              transition: { duration: 0.3 },
+              boxShadow: '0 20px 40px rgba(var(--primary-rgb), 0.3)',
             }}
             whileTap={{ scale: 0.98 }}
           >
-            View All Events
+            <span className="relative z-10">View All Events</span>
           </motion.button>
         </motion.div>
       </div>

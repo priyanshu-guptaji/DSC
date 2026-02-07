@@ -72,8 +72,8 @@ export default function Navbar({ isDark, setIsDark }: NavbarProps) {
   return (
     <motion.nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-          ? 'py-4 bg-background/40 backdrop-blur-2xl border-b border-white/5 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.5)]'
-          : 'py-8 bg-transparent'
+        ? 'py-4 bg-background/40 backdrop-blur-2xl border-b border-white/5 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.5)]'
+        : 'py-8 bg-transparent'
         }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -88,11 +88,11 @@ export default function Navbar({ isDark, setIsDark }: NavbarProps) {
               whileHover={{ rotate: 180 }}
               transition={{ duration: 0.6, ease: 'easeInOut' }}
             >
-              <div className="w-full h-full bg-background rounded-[11px] flex items-center justify-center font-black text-xl tracking-tighter italic text-white">
+              <div className="w-full h-full bg-background rounded-[11px] flex items-center justify-center font-black text-xl tracking-tighter italic text-foreground">
                 DS
               </div>
             </motion.div>
-            <span className="text-xl font-black tracking-tight text-white group-hover:text-primary transition-colors">
+            <span className="text-xl font-black tracking-tight text-foreground group-hover:text-primary transition-colors">
               CLUB <span className="text-primary italic">.</span>
             </span>
           </Link>
@@ -103,7 +103,7 @@ export default function Navbar({ isDark, setIsDark }: NavbarProps) {
               {navLinks.map((link, idx) => (
                 <Link key={link.label} href={link.href}>
                   <motion.div
-                    className="px-5 py-2 rounded-xl text-sm font-bold text-white/60 hover:text-white transition-all relative overflow-hidden group/item"
+                    className="px-5 py-2 rounded-xl text-sm font-bold text-foreground/60 hover:text-foreground transition-all relative overflow-hidden group/item"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -121,7 +121,7 @@ export default function Navbar({ isDark, setIsDark }: NavbarProps) {
             <div className="flex items-center gap-3">
               <motion.button
                 onClick={() => setIsDark(!isDark)}
-                className="p-3 rounded-xl bg-white/5 border border-white/5 text-white/60 hover:text-white transition-all backdrop-blur-xl"
+                className="p-3 rounded-xl bg-foreground/5 border border-foreground/10 text-foreground/60 hover:text-foreground transition-all backdrop-blur-xl"
                 whileHover={{ scale: 1.1, rotate: 15 }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="Toggle theme"
@@ -131,11 +131,14 @@ export default function Navbar({ isDark, setIsDark }: NavbarProps) {
 
               <Link href="/#join">
                 <motion.button
-                  className="px-6 py-3 bg-primary text-white text-sm font-black rounded-xl shadow-xl shadow-primary/20 hover:shadow-primary/30 transition-all"
-                  whileHover={{ scale: 1.05, y: -2 }}
+                  className="px-6 py-3 bg-gradient-to-br from-primary to-accent text-primary-foreground text-sm font-black rounded-xl shadow-xl shadow-primary/20 relative overflow-hidden group"
+                  whileHover={{ scale: 1.05, y: -2, boxShadow: '0 10px 25px -5px rgba(var(--primary-rgb), 0.4)' }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Join Us
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:animate-shine"
+                  />
+                  <span className="relative z-10">Join Us</span>
                 </motion.button>
               </Link>
             </div>
@@ -145,14 +148,14 @@ export default function Navbar({ isDark, setIsDark }: NavbarProps) {
           <div className="md:hidden flex items-center gap-4">
             <motion.button
               onClick={() => setIsDark(!isDark)}
-              className="p-2 rounded-lg text-white/60"
+              className="p-2 rounded-lg text-foreground/60"
               whileTap={{ scale: 0.9 }}
             >
               {isDark ? <Sun className="w-5 h-5 text-accent" /> : <Moon className="w-5 h-5 text-primary" />}
             </motion.button>
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-3 rounded-xl bg-white/5 border border-white/5 text-white"
+              className="p-3 rounded-xl bg-foreground/5 border border-foreground/10 text-foreground"
               whileTap={{ scale: 0.95 }}
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -182,7 +185,7 @@ export default function Navbar({ isDark, setIsDark }: NavbarProps) {
                   <Link
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-5xl font-black text-white hover:text-primary transition-colors tracking-tighter"
+                    className="text-5xl font-black text-foreground hover:text-primary transition-colors tracking-tighter"
                   >
                     {link.label}
                   </Link>
@@ -198,7 +201,7 @@ export default function Navbar({ isDark, setIsDark }: NavbarProps) {
                 <Link
                   href="/#join"
                   onClick={() => setIsOpen(false)}
-                  className="inline-block px-10 py-5 bg-primary text-white text-xl font-black rounded-2xl shadow-2xl shadow-primary/20"
+                  className="inline-block px-10 py-5 bg-primary text-primary-foreground text-xl font-black rounded-2xl shadow-2xl shadow-primary/20"
                 >
                   Become a Member
                 </Link>

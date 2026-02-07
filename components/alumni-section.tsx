@@ -115,15 +115,15 @@ function AlumniCard({ member, index }: { member: AlumniMember; index: number }) 
 
     return (
         <motion.div
-            className="group relative rounded-3xl border border-white/5 bg-card overflow-hidden cursor-pointer backdrop-blur-md hover:border-primary/40 transition-all duration-500 min-h-[420px] flex flex-col justify-end p-8"
+            className="group relative rounded-3xl border border-foreground/5 bg-card overflow-hidden cursor-pointer backdrop-blur-md hover:border-primary/40 transition-all duration-500 min-h-[420px] flex flex-col justify-end p-8"
             variants={cardVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
-            whileHover={{ y: -12, boxShadow: '0 40px 80px -15px rgba(0, 0, 0, 0.6)' }}
+            whileHover={{ y: -12, boxShadow: '0 40px 80px -15px rgba(0, 0, 0, 0.1)' }}
         >
             {/* Background Texture/Noise overlay for premium feel */}
-            <div className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+            <div className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] dark:opacity-[0.05]" />
 
             {/* Background Image/Gradient */}
             <div className="absolute inset-0 z-0">
@@ -139,7 +139,7 @@ function AlumniCard({ member, index }: { member: AlumniMember; index: number }) 
                     </>
                 ) : (
                     <div className={`absolute inset-0 bg-gradient-to-br ${colorClass} opacity-80`}>
-                        <div className="w-full h-full flex items-center justify-center font-bold text-[10rem] text-white/5 select-none transition-transform duration-700 group-hover:scale-110">
+                        <div className="w-full h-full flex items-center justify-center font-bold text-[10rem] text-foreground/5 select-none transition-transform duration-700 group-hover:scale-110">
                             {member.name.split(' ').map(n => n[0]).join('')}
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
@@ -151,7 +151,7 @@ function AlumniCard({ member, index }: { member: AlumniMember; index: number }) 
             <div className="relative z-20">
                 {/* Tenure Badge */}
                 <motion.div
-                    className="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-[0.2em] uppercase text-white/60 bg-white/5 backdrop-blur-md border border-white/10 rounded-full"
+                    className="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-[0.2em] uppercase text-foreground/60 bg-foreground/5 backdrop-blur-md border border-foreground/10 rounded-full"
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 + 0.3 }}
@@ -160,19 +160,19 @@ function AlumniCard({ member, index }: { member: AlumniMember; index: number }) 
                 </motion.div>
 
                 {/* Name & Role */}
-                <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 tracking-tight group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-2xl sm:text-3xl font-black text-foreground mb-2 tracking-tight group-hover:text-primary transition-colors duration-300">
                     {member.name}
                 </h3>
 
                 <div className="flex flex-wrap items-center gap-2 mb-4">
                     <span className="text-primary font-bold text-xs uppercase tracking-wider">{member.position}</span>
-                    <span className="w-1 h-1 rounded-full bg-white/20" />
-                    <span className="text-white/40 text-xs font-medium">{member.location}</span>
+                    <span className="w-1 h-1 rounded-full bg-foreground/10" />
+                    <span className="text-foreground/40 text-xs font-medium">{member.location}</span>
                 </div>
 
                 {/* Current Role with animated underline */}
-                <div className="relative mb-6 pt-4 border-t border-white/5">
-                    <p className="text-sm text-white/70 leading-relaxed italic group-hover:text-white transition-colors">
+                <div className="relative mb-6 pt-4 border-t border-foreground/5">
+                    <p className="text-sm text-foreground/70 leading-relaxed italic group-hover:text-foreground transition-colors">
                         &ldquo;{member.bio}&rdquo;
                     </p>
                     <div className="mt-4 flex items-center gap-2">
